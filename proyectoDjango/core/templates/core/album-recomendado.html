@@ -1,0 +1,33 @@
+{% extends 'core/plantilla.html' %}
+
+{% load static %}
+
+{% block titulo %}Reseña{% endblock %}
+
+{% block body %}
+<h1>Albums reseñados</h1>
+
+<div class="container m-4">
+    <div class="row mb-3">
+        <h1>Título : {{album.title}}</h1>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            {% if album.image %}
+            <img class="" src="{{album.image.url}}" alt="{{album.title}}">
+            {% else%}
+            <img class="" src="{% static 'crud/img/image_not_found.jpg' %}" alt="INF">
+            {% endif %}
+        </div>
+        <div class="col-md-8">
+            <ul class="list-unstyled">
+                <li class="mb-2">Título: <p class="fw-bold">{{album.title}}</p></li>
+                <li class="mb-2">Artista: <p class="fw-bold">{{album.artista}}</p></li>
+                <li class="mb-2">Recomendacion: <p class="fw-bold">{{album.recomendacion}}</p></li>
+                <li class="mb-2">Analisis: <p class="fw-bold">{{album.analisis}}</p></li>
+            </ul>
+        </div>        
+    </div>
+</div>
+
+{% endblock %}

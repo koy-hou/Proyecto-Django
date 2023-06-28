@@ -1,0 +1,62 @@
+{% extends 'crud/plantilla.html' %}
+
+{% load static %}
+
+{% block title%}Album Nuevo{% endblock %}
+
+{% block main_content %}
+<div class="container my-2 py-3 bg-dark text-white text-center rounded">
+    <h1>Formulario Registros</h1>
+</div>
+<div class="container my-2 p-5">
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group mb-3">
+            <label for="idAlbum" class="fw-bold">ID</label>
+            <div class="input-group">
+                {{form.idAlbum}}
+            </div>
+        </div>
+        <div class="form-group mb-3">
+            <label for="title" class="fw-bold">Título:</label>
+            <div class="input-group">
+                {{form.title}}
+            </div>
+        </div>
+        <div class="form-group mb-3">
+            <label for="studio" class="fw-bold">Artista: </label>
+            <div class="input-group">
+                {{form.artista}}
+            </div>
+        </div>
+        <div class="form-group mb-3">
+            <label for="recomendacion" class="fw-bold">Lo recomiendo:</label>
+            <div class="input-group">
+                {{form.recomendacion}}
+            </div>
+        </div>
+        <div class="form-group mb-3">
+            <label for="genero" class="fw-bold">Genero:</label>
+            <div class="input-group">
+                {{form.genero}}
+            </div>
+        </div>
+        <div class="form-group mb-3">
+            <label for="analisis" class="fw-bold">Analisis</label>
+            <div class="input-group">
+                {{form.analisis}}
+            </div>
+        </div>
+        <div class="form-group mb-3">
+            <label for="image" class="fw-bold">Imagen</label>
+            <div class="input-group">
+                {{form.image}}
+            </div>
+        </div>
+        <div class="text-center my-4">
+            <input type="submit" class="btn btn-primary m-2" id="registrar" value="Registrar">
+            <input type="reset" class="btn btn-secondary     m-2" id="limpiar" value="Restablecer">
+        </div>
+    </form>
+</div>
+{% endblock %}

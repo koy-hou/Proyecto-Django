@@ -1,0 +1,40 @@
+body{
+    color: black;
+}
+.headerPag{
+    
+    display: flex;
+    background-color: #F98404;
+    justify-content: space-between;
+    color: rgb(0, 99, 21);
+    
+    
+}
+.headerPag h1{
+    font-weight: bold;
+}
+
+.navbar{
+    display: grid;
+    justify-self: flex-start;
+    background-color: #F98404;
+}
+
+.navbar a{
+    color: rgb(0, 99, 21);
+    font-weight: 760;
+}
+
+#modoOscuro{
+    margin-left: 6px;
+}
+
+.hora-oscuro{
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: end;
+    padding: 10px;
+}
+.piePagina{
+    color: aqua;
+}

@@ -1,0 +1,38 @@
+{% extends 'core/plantilla.html' %}
+
+{% load static %}
+
+{% block titulo %}Albums{% endblock %}
+
+{% block body %}
+<h1>Albums reseñados</h1>
+
+<section class="container my-4">    
+    <div class="row row-cols-1 row-cols-md-4 g-4">
+        {% for v in albums %}
+        <div class="col">
+            <div class="card h-100">
+                {% if v.image %}
+                <img src="{{v.image.url}}" class="card-img-top p-2" alt="{{v.title}}">
+                {% else %}
+                <img src="{% static 'crud/icono/imagen_no_encontrada.png' %}" class="card-img-top" alt="Image not found">
+                {% endif  %}
+                <div class="card-body">
+                    <p class="card-title fw-bold">{{v.title}}</p>
+                    <p class="card-text">Artista: {{v.artista}}</p>
+                    <p class="card-text fst-italic">
+                        <a class="text-decoration-none" href="/album/recomendacion/{{v.recomendacion.id}}">{{v.platform}}</a>
+                    </p>
+                </div>
+                <div class="card-footer text-center">
+                    <a class="btn btn-primary" href="{% url 'album-resena' album_id=v.idAlbum %}">
+                        <i class="fa-solid fa-cart-plus"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+{% endblock %}

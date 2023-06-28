@@ -1,0 +1,139 @@
+{% extends 'crud/plantilla.html' %}
+
+{% load static %}
+
+{% block title %}Album{% endblock %}
+
+{% block main_content %}
+<div class="container my-2 p-2 bg-dark text-white text-center rounded">
+    <h1>Administrador de Albums</h1>
+</div>
+
+<div class="container my-2">
+    <div class="row">
+        {% if 'OK' in request.GET %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>xd</strong> xd
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endif %}
+        {% if 'FAIL' in request.GET %}
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>xd</strong> xd
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endif %}
+        {% if 'NO_EXISTS' in request.GET %}
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>xd</strong> xd
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endif %}
+        {% if 'UPDATED' in request.GET %}
+        <div class="alert alert-info alert-dismissible fade show" role="alert">
+            <strong>xd</strong> xd
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endif %}
+        {% if 'DELETED' in request.GET %}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>xd</strong> xd
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<div class="container-fluid my-2">
+    <div class="table-responsive">
+        <table class="table">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Título</th>
+                    <th>Artista</th>
+                    <th>Recomendacion</th>
+                    <th>Genero</th>
+                    <th>Analisis</th>
+                    <th>Imagen</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for v in albums %}
+                <tr>
+                    <td>{{v.idAlbum}}</td>
+                    <td>{{v.title}}</td>
+                    <td>
+                        <a class=" text-dark" href="/crud/albums/artista/{{v.artista}}">{{v.artista}}</a>
+                    </td>
+                    <td>
+                        <a class=" text-dark" href="/crud/albums/recomendacion/{{v.recomendacion.id}}">{{v.recomendacion}}</a>
+                    </td>
+                    <td>
+                        <a class=" text-dark" href="/crud/albums/genero/{{v.genero.id}}">{{v.genero}}</a>
+                    </td>
+                    <td>{{v.analisis}}</td>
+                    <td>
+                        {% if v.image %}
+                        <img class="img-album" src="{{v.image.url}}" alt="{{v.title}}" height="100px">
+                        {% else%}
+                        <img class="img-album" src="{% static 'crud/img/imagen_no_encontrada.jpg' %}" alt="INF">
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a class="text-decoration-none" href="{% url 'album-detalle' album_id=v.idAlbum %}">
+                            <span class="text-primary fs-2">
+                                <i class="fa-solid fa-eye"></i>
+                            </span>
+                        </a>
+                        <a class="text-decoration-none" href="{% url 'album-editar' album_id=v.idAlbum %}">
+                            <span class="text-warning fs-2">
+                                <i class="fa-solid fa-pencil"></i>
+                            </span>
+                        </a>
+                        <a class="text-decoration-none modal-borrar" data-bs-toggle="modal"
+                            data-bs-target="#staticBackdrop"
+                            data-href="{% url 'album-eliminar' album_id=v.idAlbum %}">
+                            <span class="text-danger fs-2">
+                                <i class="fa-solid fa-trash"></i>
+                            </span>
+                        </a>
+
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Mensajes</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h6 class="modal-title">xd<br>xd</h6>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-bs-dismiss="modal">Cancelar</button>
+                <a href="#" id="confirmar-borrar" class="btn btn-danger">Si</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    $('.modal-borrar').on('click',function(){
+        const href = $(this).attr('data-href');
+        $('#confirmar-borrar').attr('href',href);
+    });
+</script>
+{% endblock %}
