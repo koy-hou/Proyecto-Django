@@ -1,5 +1,6 @@
 asgiref==3.6.0
 astroid==2.15.5
+bcrypt==4.0.1
 colorama==0.4.6
 dill==0.3.6
 Django==4.2.1
