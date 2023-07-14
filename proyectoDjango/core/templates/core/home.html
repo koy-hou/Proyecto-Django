@@ -5,5 +5,29 @@
 {% block titulo %}Home{% endblock %}
 
 {% block body %}
-<h1>Inicio</h1>
+
+{% if messages %}
+        <div class="alert {{ request.session.level_mensaje }} alert-dismissible" role="alert" >
+            <ul>
+                {% for message in messages %}
+                    <li><strong>{{message}}</strong></li>    
+                {% endfor %}                   
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </ul>
+        </div>        
+{% endif %}    
+
+<div class="row gx-4 gx-lg-5 align-items-center my-5">
+    <div class="col-lg-7"><img class="img-fluid rounded mb-4 mb-lg-0" src="{% static 'core/icono/vinilos.jpg'%}" alt="..." /></div>
+    <div class="col-lg-5">
+        <h1 class="font-weight-light">Moist Albums</h1>
+        <p>Somos una pequeña pagina de recomendacion de albums, que busca poder expander tus gustos musicales </p>
+        <a class="btn btn-primary" href="{% url 'album' %}">Ver Recomendaciones</a>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block js %}
+<script src="{% static 'core/js/funciones.js' %}"></script>
 {% endblock %}

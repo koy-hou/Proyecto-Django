@@ -5,15 +5,35 @@ from django.urls import reverse
 from .models import *
 from .forms import *
 
+from functools import wraps
+from django.http import HttpResponseRedirect
+
+def admin_only(function):
+  @wraps(function)
+  def wrap(request, *args, **kwargs):
+        
+        if 'usuario' in request.session:
+            rol = request.session['usuario'].get('rol')
+            if rol == 'ADMIN':
+                return function(request, *args, **kwargs)
+            else:
+                return HttpResponseRedirect('/')
+        else:
+            return HttpResponseRedirect('/')
+
+  return wrap
 
 # Create your views here.
+@admin_only
 def root(request):
     return redirect('albums/')
 
+@admin_only
 def album_lista(request):
     context = {'albums': Album.objects.all()}
     return render(request,'crud/albums.html',context)
 
+@admin_only
 def album_nuevo(request):
     if request.method == 'POST':
         form = AlbumForm(request.POST, request.FILES)
@@ -30,6 +50,7 @@ def album_nuevo(request):
                 title = title,
                 artista = artista,
                 recomendacion = recomendacion,
+                genero = genero,
                 analisis = analisis,
                 image = image
             )
@@ -41,6 +62,7 @@ def album_nuevo(request):
         form = AlbumForm
     return render(request,'crud/albums-nuevo.html',{'form':form})
 
+@admin_only
 def album_editar(request,album_id):
     try:
         album = Album.objects.get(idAlbum = album_id)
@@ -59,7 +81,7 @@ def album_editar(request,album_id):
     except:
         return redirect(reverse('albums') + '?NO_EXISTS')
 
-
+@admin_only
 def album_detalle(request, album_id):
     try:
         album = Album.objects.get(idAlbum=album_id)
@@ -70,7 +92,8 @@ def album_detalle(request, album_id):
             return redirect(reverse('albums') + '?lala')
     except:
         return redirect(reverse('albums') + '?FAIL')
-    
+
+@admin_only
 def album_eliminar(request,album_id):
     try:
         album = Album.objects.get(idAlbum=album_id)

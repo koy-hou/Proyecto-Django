@@ -103,3 +103,43 @@ def review_detail(request,review_id):
     elif request.method == 'DELETE':
         recomendacion.delete()
         return Response({'mensaje':'La recomendación {} ha sido eliminada de la base de datos.'.format(review_id)},status=status.HTTP_204_NO_CONTENT)
+
+@api_view(['GET','POST'])
+def genero_list(request):
+    if request.method == 'GET':
+        generos = Genero.objects.all()
+        genero_serializer = GenerosSerializer(generos,many=True)
+        return Response(genero_serializer.data)
+
+    elif request.method == 'POST':
+        genero_data = JSONParser().parse(request)
+        genero_serializer = genero_serializer(data=genero_data)
+        if genero_serializer.is_valid():
+            genero_serializer.save()
+            return JsonResponse(genero_serializer.data,status=status.HTTP_201_CREATED)
+        else:
+            return Response(genero_serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET','PUT','DELETE'])
+def genero_detail(request,genero_id):
+    try:
+        generos = Genero.objects.get(id=genero_id)
+    except:
+        return Response({'mensaje':'El genero {} no existen en nuestros registros'.format(genero_id)},status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        genero_serializer = GenerosSerializer(generos)
+        return Response(genero_serializer.data)
+
+    elif request.method == 'PUT':
+        genero_data = JSONParser().parse(request)
+        genero_serializer = genero_serializer(generos, data=genero_data)
+        if genero_serializer.is_valid():
+            genero_serializer.save()
+            return JsonResponse(genero_serializer.data,status=status.HTTP_202_ACCEPTED)
+        else:
+            return Response(genero_serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        generos.delete()
+        return Response({'mensaje':'El genero {} ha sido eliminada de la base de datos.'.format(genero_id)},status=status.HTTP_204_NO_CONTENT)

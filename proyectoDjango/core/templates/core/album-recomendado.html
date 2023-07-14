@@ -5,7 +5,9 @@
 {% block titulo %}Reseña{% endblock %}
 
 {% block body %}
-<h1>Albums reseñados</h1>
+<br>
+
+<h1 class="text-center">Albums reseñados</h1>
 
 <div class="container m-4">
     <div class="row mb-3">
@@ -23,6 +25,7 @@
             <ul class="list-unstyled">
                 <li class="mb-2">Título: <p class="fw-bold">{{album.title}}</p></li>
                 <li class="mb-2">Artista: <p class="fw-bold">{{album.artista}}</p></li>
+                <li class="mb-2">Genero: <p class="fw-bold">{{album.genero}}</p></li>
                 <li class="mb-2">Recomendacion: <p class="fw-bold">{{album.recomendacion}}</p></li>
                 <li class="mb-2">Analisis: <p class="fw-bold">{{album.analisis}}</p></li>
             </ul>

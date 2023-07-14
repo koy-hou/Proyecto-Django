@@ -7,6 +7,6 @@ urlpatterns = [
     path('albums/nuevo/', album_nuevo, name="album-nuevo"),
     path('album/detalle/<str:album_id>', album_detalle, name="album-detalle"),
     path('album/editar/<str:album_id>', album_editar, name="album-editar"),
-    path('videogames/<str:album_id>/eliminar', album_eliminar, name="album-eliminar"),
+    path('album/<str:album_id>/eliminar', album_eliminar, name="album-eliminar"),
 ]
 

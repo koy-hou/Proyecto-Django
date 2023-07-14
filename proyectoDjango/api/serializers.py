@@ -16,3 +16,10 @@ class RecomendacionSerializer(serializers.ModelSerializer):
         fields = (
             'id','recomendacion','created_at','updated_at'
         )
+
+class GenerosSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Genero
+        fields = (
+            'id','genero','created_at','updated_at'
+        )

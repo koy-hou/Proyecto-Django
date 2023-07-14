@@ -1,0 +1,28 @@
+{% extends 'core/plantilla.html' %}
+
+{% load static %}
+
+{% block titulo %}Login{% endblock %}
+
+{% block body %}
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>{{ message }}</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+    <div class="container">
+        <br>
+        <br>
+        <h1>Bienvenido {{request.session.usuario.first_name}}</h1>
+        <br>
+        <h3>Espero que puedas disfrutar de la pagina</h1>
+        <br>
+        <br>
+        <br>
+    </div>
+
+{% endblock %}

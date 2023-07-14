@@ -48,3 +48,16 @@ class Album(models.Model):
 
     def __str__(self) -> str:
         return self.title
+
+class Contactos(models.Model):
+    nombre = models.CharField(verbose_name='Nombre',max_length=15)
+    apellidoPaterno = models.CharField(verbose_name='Apellido Paterno',max_length=32)
+    apellidoMaterno = models.CharField(verbose_name='Apellido Materno',max_length=32)
+    correo = models.CharField(verbose_name='Correo Electronico',max_length=32)
+    comentarios = models.CharField(verbose_name='Comentarios',max_length=100)
+    creacion = models.DateTimeField(verbose_name='Fecha Mensaje', auto_now_add=True)
+
+    class Meta:
+        verbose_name = 'contacto'
+        verbose_name_plural = 'contactos'
+        ordering = ['creacion','nombre','apellidoPaterno','correo']

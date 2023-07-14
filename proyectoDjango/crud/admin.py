@@ -17,6 +17,14 @@ class AlbumAdmin(admin.ModelAdmin):
     list_display = ('idAlbum','title','artista','recomendacion','analisis')
     ordering = ['title','artista']
 
+class ContactoAdmin(admin.ModelAdmin):
+    readonly_fields = ('creacion','id','nombre','apellidoPaterno','apellidoMaterno','correo','comentarios')
+    list_display = ('id','nombre','apellidoPaterno','apellidoMaterno','correo','creacion','comentarios')
+    ordering = ['creacion','nombre','apellidoPaterno','correo']
+
+
+
 admin.site.register(Recomendacion,RecomendacionAdmin)
 admin.site.register(Album,AlbumAdmin)
 admin.site.register(Genero,GeneroAdmin)
+admin.site.register(Contactos,ContactoAdmin)
